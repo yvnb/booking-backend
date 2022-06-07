@@ -6,14 +6,14 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.6.8</version>
+		<version>2.2.7.RELEASE</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.movieportal</groupId>
 	<artifactId>booking-backend</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>booking-backend</name>
-	<description>Demo project for Spring Boot</description>
+	<description>Movie Portal for Booking - Backend</description>
 	<properties>
 		<java.version>1.8</java.version>
 	</properties>
@@ -47,10 +47,17 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<!-- Open API 3.0 dependency for Spring Rest API -->
 		<dependency>
 			<groupId>io.springfox</groupId>
 			<artifactId>springfox-boot-starter</artifactId>
 			<version>3.0.0</version>
+		</dependency>
+		<!-- Jasypt dependency for password ecryption/decryption -->
+		<dependency>
+			<groupId>com.github.ulisesbocchio</groupId>
+			<artifactId>jasypt-spring-boot-starter</artifactId>
+			<version>3.0.3</version>
 		</dependency>
 	</dependencies>
 
@@ -67,6 +74,11 @@
 						</exclude>
 					</excludes>
 				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>com.github.ulisesbocchio</groupId>
+				<artifactId>jasypt-maven-plugin</artifactId>
+				<version>3.0.3</version>
 			</plugin>
 		</plugins>
 	</build>
