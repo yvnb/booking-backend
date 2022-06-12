@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.movieportal.booking.dto.Movie;
+import com.movieportal.booking.dto.Review;
 import com.movieportal.booking.service.MovieDetailsService;
 
 
@@ -33,10 +34,14 @@ public class MovieDetailsController {
 		return ResponseEntity.ok(movieDetailsService.getMoviesBySearchTerm(searchTerm));
 	}
 	
+	@GetMapping("/{id}/reviews")
+	public ResponseEntity<List<Review>> getMovieReviews(@PathVariable("id") Long id) {
+		return ResponseEntity.ok(movieDetailsService.getMovieReviews(id));
+	}
+	
 	@GetMapping("/{id}")
 	public ResponseEntity<Movie> getMovieById(@PathVariable("id") Long id) {
 		return ResponseEntity.ok(movieDetailsService.getMovieDetails(id));
 	}
 	
-
 }

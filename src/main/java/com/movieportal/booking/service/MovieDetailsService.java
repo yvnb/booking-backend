@@ -16,6 +16,8 @@ import org.springframework.web.reactive.function.client.WebClient;
 
 import com.movieportal.booking.dto.Movie;
 import com.movieportal.booking.dto.MovieResults;
+import com.movieportal.booking.dto.MovieReviews;
+import com.movieportal.booking.dto.Review;
 
 import io.netty.channel.ConnectTimeoutException;
 import reactor.util.retry.Retry;
@@ -37,6 +39,9 @@ public class MovieDetailsService {
 
     @Value("${tmdb.movie.id.url}")
     private String movieIdUrl;
+    
+    @Value("${tmdb.movie.review.url}")
+    private String movieReviewUrl;
     
 	@Autowired
 	private WebClient webClient;
@@ -99,6 +104,25 @@ public class MovieDetailsService {
 								.block();		
 		return movie;
 	}
+	
+	public List<Review> getMovieReviews(Long movieId){
+		List<Review> movieReviews = new ArrayList<Review>();
+		MovieReviews results = webClient.get()
+										.uri(uriBuilder -> uriBuilder
+										.path(movieReviewUrl)
+										.queryParam("api_key", tmdbAPIKey)
+										.queryParam("language", "en-US")
+										.build(movieId))
+										.retrieve().bodyToMono(new ParameterizedTypeReference<MovieReviews>() {
+										})
+										.retryWhen(Retry.fixedDelay(3, Duration.ofMillis(50)).filter(e -> e instanceof ConnectTimeoutException))
+										.block();
+		if(results!=null) {
+			movieReviews = results.getResults();
+		}
+		
+		return movieReviews;
+	}
 
 	private MultiValueMap<String, String> getRequestParams(){
 		
@@ -110,4 +134,5 @@ public class MovieDetailsService {
 		//paramMap.add("page", "1");
 		return paramMap;		
 	}
+
 }
