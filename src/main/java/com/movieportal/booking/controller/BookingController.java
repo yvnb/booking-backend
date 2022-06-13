@@ -18,7 +18,7 @@ import com.movieportal.booking.dto.BookingRequest;
 import com.movieportal.booking.model.Booking;
 import com.movieportal.booking.service.BookingService;
 
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "https://master--movie-portal-yvnb.netlify.app")
 @RestController
 @RequestMapping("/api/booking")
 public class BookingController {
