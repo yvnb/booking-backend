@@ -59,10 +59,10 @@ public class MovieDetailsService {
 										})
 										.retryWhen(Retry.fixedDelay(3, Duration.ofMillis(50)).filter(e -> e instanceof ConnectTimeoutException))
 										.block();
-		if(results!=null) {
+		if(results!=null && results.getResults()!=null && results.getResults().size() > 0) {
 			featuredMovies = results.getResults()
 									.stream()
-									.sorted(Comparator.comparingDouble(Movie::getPopularity))
+									.sorted(Comparator.comparingDouble(Movie::getUserRating))
 									.limit(10)
 									.collect(Collectors.toList());
 		}
@@ -83,7 +83,7 @@ public class MovieDetailsService {
 										})
 										.retryWhen(Retry.fixedDelay(3, Duration.ofMillis(50)).filter(e -> e instanceof ConnectTimeoutException))
 										.block();
-		if(results!=null) {
+		if(results!=null && results.getResults()!=null && results.getResults().size() > 0) {
 			matchingMovies = results.getResults();
 		}
 		
@@ -101,7 +101,7 @@ public class MovieDetailsService {
 								.retrieve().bodyToMono(new ParameterizedTypeReference<Movie>() {
 								})
 								.retryWhen(Retry.fixedDelay(3, Duration.ofMillis(50)).filter(e -> e instanceof ConnectTimeoutException))
-								.block();		
+								.block();	
 		return movie;
 	}
 	
@@ -117,7 +117,7 @@ public class MovieDetailsService {
 										})
 										.retryWhen(Retry.fixedDelay(3, Duration.ofMillis(50)).filter(e -> e instanceof ConnectTimeoutException))
 										.block();
-		if(results!=null) {
+		if(results!=null && results.getResults()!=null && results.getResults().size() > 0) {
 			movieReviews = results.getResults();
 		}
 		

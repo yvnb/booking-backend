@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -40,13 +41,13 @@ public class BookingController {
 		return ResponseEntity.ok(bookingService.getBookings());
 	}
 
-	@PostMapping("/{bookingId}")
+	@PutMapping("/{bookingId}")
 	public ResponseEntity<Booking> updateBooking(@RequestBody BookingRequest bookingRequest,
 			@PathVariable String bookingId) {
 		return ResponseEntity.ok(bookingService.updateBooking(bookingId, bookingRequest));
 	}
 
-	@PutMapping("/cancel/{bookingId}")
+	@PatchMapping("/cancel/{bookingId}")
 	public ResponseEntity<Booking> cancelBooking(@PathVariable String bookingId) {
 		return ResponseEntity.ok(bookingService.cancelBooking(bookingId));
 	}

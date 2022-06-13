@@ -27,7 +27,6 @@ public class BookingService {
 		 */
 		Booking newBooking = new Booking();
 		BeanUtils.copyProperties(bookingRequest, newBooking);
-		newBooking.setBookingDate(Instant.now());
 		newBooking.setBookingStatus(BookingStatus.BOOKED);
 		return bookingRepository.save(newBooking);
 	}
@@ -50,10 +49,27 @@ public class BookingService {
             throw new EntityNotFoundException("Booking not present in the database");
         }
         Booking booking = optionalBooking.get();
-        booking.setCustomerFirstName(bookingRequest.getCustomerFirstName());
-        booking.setCustomerLastName(bookingRequest.getCustomerLastName());
-        booking.setNumberOfSeats(bookingRequest.getNumberOfSeats());
-        booking.setBookingDate(bookingRequest.getBookingDate());
+        if(bookingRequest.getFirstName()!=null) {
+        	booking.setFirstName(bookingRequest.getFirstName());
+        }
+        if(bookingRequest.getLastName()!=null) {
+        	booking.setLastName(bookingRequest.getLastName());
+        }
+        if(bookingRequest.getSeats()!=null) {
+        	booking.setSeats(bookingRequest.getSeats());
+        }
+        if(bookingRequest.getBookingDate()!=null) {
+        	booking.setBookingDate(bookingRequest.getBookingDate());
+        }
+        if(bookingRequest.getPhone()!=null) {
+        	booking.setPhone(bookingRequest.getPhone());
+        }
+        if(bookingRequest.getEmail()!=null) {
+        	booking.setEmail(bookingRequest.getEmail());
+        }
+        if(bookingRequest.getBookingStatus()!=null) {
+        	booking.setBookingStatus(bookingRequest.getBookingStatus());
+        }
         return bookingRepository.save(booking);
     }
     

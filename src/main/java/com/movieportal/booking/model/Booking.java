@@ -1,6 +1,8 @@
 package com.movieportal.booking.model;
 
 import java.time.Instant;
+import java.util.Date;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -20,11 +22,12 @@ public class Booking {
 	private String id;
 	private Integer movieId;
 	private String movieName;
-	private String customerEmail;
-	private String customerFirstName;
-	private String customerLastName;
-	private Instant bookingDate;
-	private Integer numberOfSeats;
+	private String email;
+	private String firstName;
+	private String lastName;
+	private String phone;
+	private Date bookingDate;
+	private Integer seats;
     private BookingStatus bookingStatus;
 	
 }
